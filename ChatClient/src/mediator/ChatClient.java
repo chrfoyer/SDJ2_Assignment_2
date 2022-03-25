@@ -1,14 +1,19 @@
 package mediator;
 
 import com.google.gson.Gson;
+import com.sun.webkit.Timer;
+import model.Model;
+import model.ModelManager;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ChatClient implements RemoteModel
+public class ChatClient implements PropertyChangeListener
 {
   private String host;
   private int port;
@@ -18,22 +23,27 @@ public class ChatClient implements RemoteModel
   private String reply;
   private Gson gson;
   private String receivedString;
+  private Model model;
 
   public static final String HOST = "localhost";
   public static final int PORT = 6789;
 
-  public ChatClient(String host, int port)
+  public ChatClient(String host, int port, Model model)
   {
     this.host = host;
     this.port = port;
+    this.model = model;
   }
 
-  @Override public void connect() throws IOException
+  public void connect() throws IOException
   {
     socket = new Socket(host, port);
     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     out = new PrintWriter(socket.getOutputStream(), true);
 
+    model = new ModelManager();
+
+    model.addListener(this);
     gson = new Gson();
     ChatClientReceiver chatClientReceiver = new ChatClientReceiver(this, in);
     Thread thread = new Thread(chatClientReceiver);
@@ -41,7 +51,7 @@ public class ChatClient implements RemoteModel
 
   }
 
-  @Override public void disconnect() throws IOException
+  public void disconnect() throws IOException
   {
     in.close();
     out.close();
@@ -77,5 +87,11 @@ public class ChatClient implements RemoteModel
       receivedString = input;
       notifyAll();
     }
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    out.println(evt.getPropertyName());
+    out.println(evt.getOldValue());
   }
 }
