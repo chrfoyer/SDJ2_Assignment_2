@@ -1,53 +1,51 @@
 package viewmodel;
 
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.ObservableList;
+import model.Model;
 
 public class ChatViewModel
 {
   private Model model;
-  private StringProperty request;
-  private StringProperty reply;
+  private ObservableList<String> messages;
+  private StringProperty textInput;
   private StringProperty error;
 
   public ChatViewModel(Model model)
   {
     this.model = model;
     error = new SimpleStringProperty();
-    request = new SimpleStringProperty();
-    reply = new SimpleStringProperty();
-  }
-/*
-  public void convert()
-  {
-    try
-    {
-      String replyTxt = model.convert(request.get());
-      reply.set(replyTxt);
-      request.set(null);
-      error.set(null);
-    }
-    catch (Exception e)
-    {
-      error.set(e.getMessage());
-    }
+    messages = new SimpleListProperty<>();
+    textInput = new SimpleStringProperty();
   }
 
- */
+  // TODO: 2022. 03. 25.
+
+  public void reset()
+  {
+    //put in everything from model.getAllmessages() from server
+    error.set("");
+    textInput.set("");
+
+  }
+
+  //method that adds shit on server
 
   public StringProperty errorProperty()
   {
     return error;
   }
 
-  public StringProperty requestProperty()
+  public ObservableList messagesProperty()
   {
-    return request;
+    return messages;
   }
 
-  public StringProperty replyProperty()
+  public StringProperty textInputProperty()
   {
-    return reply;
+    return textInput;
   }
 
 }
