@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" fx:controller="view.ChatViewController" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox alignment="BOTTOM_RIGHT" prefHeight="54.0" prefWidth="600.0">
          <children>
@@ -24,7 +24,7 @@
             </VBox>
             <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
                <children>
-                  <Button mnemonicParsing="false" text="LogOut">
+                  <Button mnemonicParsing="false" text="LogOut" onAction="#logout">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -35,19 +35,19 @@
       </HBox>
       <HBox prefHeight="302.0" prefWidth="600.0">
          <children>
-            <ListView prefHeight="270.0" prefWidth="621.0" />
+            <ListView prefHeight="270.0" prefWidth="621.0" fx:id="listView"/>
          </children>
       </HBox>
       <HBox alignment="CENTER" prefHeight="90.0" prefWidth="600.0">
          <children>
             <VBox alignment="CENTER" prefHeight="59.0" prefWidth="505.0">
                <children>
-                  <TextField prefHeight="26.0" prefWidth="478.0" />
+                  <TextField prefHeight="26.0" prefWidth="478.0" fx:id="inputField"/>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="59.0" prefWidth="66.0">
                <children>
-                  <Button mnemonicParsing="false" text="Send">
+                  <Button mnemonicParsing="false" text="Send" onAction="#send">
                      <font>
                         <Font size="14.0" />
                      </font>
@@ -58,7 +58,7 @@
       </HBox>
       <HBox prefHeight="13.0" prefWidth="600.0">
          <children>
-            <Label text="Error" textFill="RED" />
+            <Label text="Error" textFill="RED" fx:id="errorLabel"/>
          </children>
       </HBox>
    </children>
