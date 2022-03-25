@@ -2,20 +2,19 @@ package viewmodel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import model.Model;
 
 public class LoginViewModel
 {
   private Model model;
-  private StringProperty request;
-  private StringProperty reply;
+  private StringProperty username;
   private StringProperty error;
 
   public LoginViewModel(Model model)
   {
     this.model = model;
     error = new SimpleStringProperty();
-    request = new SimpleStringProperty();
-    reply = new SimpleStringProperty();
+    username = new SimpleStringProperty();
   }
 
   public void login()
@@ -23,6 +22,8 @@ public class LoginViewModel
     try
     {
       //call setUsername on server
+      // TODO: 2022. 03. 25.  
+      username.get();
     }
     catch (Exception e)
     {
@@ -35,8 +36,8 @@ public class LoginViewModel
     return error;
   }
 
-  public StringProperty requestProperty()
+  public StringProperty usernameProperty()
   {
-    return request;
+    return username;
   }
 }
