@@ -22,7 +22,7 @@ public class LoginViewModel
     try
     {
       //call setUsername on server
-      // TODO: 2022. 03. 25.  
+      // TODO: 2022. 03. 25.
       username.get();
     }
     catch (Exception e)

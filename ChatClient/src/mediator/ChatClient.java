@@ -1,5 +1,7 @@
 package mediator;
 
+import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -14,6 +16,8 @@ public class ChatClient implements RemoteModel
   private BufferedReader in;
   private PrintWriter out;
   private String reply;
+  private Gson gson;
+  private String receivedString;
 
   public static final String HOST = "localhost";
   public static final int PORT = 6789;
@@ -29,6 +33,11 @@ public class ChatClient implements RemoteModel
     socket = new Socket(host, port);
     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
     out = new PrintWriter(socket.getOutputStream(), true);
+
+    gson = new Gson();
+    ChatClientReceiver chatClientReceiver = new ChatClientReceiver(this, in);
+    Thread thread = new Thread(chatClientReceiver);
+    thread.start();
 
   }
 
@@ -53,19 +62,20 @@ public class ChatClient implements RemoteModel
     }
     return reply;
   }
-
    */
 
   public synchronized void receive(String input)
   {
-    if (input.startsWith("Message "))
+    // TODO: 2022. 03. 25.
+    //placeholder values
+    if (input.equals("ADD") || input.equals("GET") || input.equals("SIZE"))
     {
-      reply = input;
-      notify();
+      System.out.println(input);
     }
     else
     {
-      //fire an event
+      receivedString = input;
+      notifyAll();
     }
   }
 }
