@@ -13,7 +13,9 @@ public class MyApplication extends Application
   {
     try
     {
-      ViewModelFactory viewModelFactory = new ViewModelFactory(null);
+      Model model = new ModelManager();
+
+      ViewModelFactory viewModelFactory = new ViewModelFactory(model);
       ViewHandler view = new ViewHandler(viewModelFactory);
 
       view.start(primaryStage);

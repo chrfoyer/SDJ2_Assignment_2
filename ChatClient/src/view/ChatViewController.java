@@ -10,10 +10,14 @@ public class ChatViewController extends ViewController
 {
   @FXML private Label errorLabel;
   @FXML private TextField inputField;
-  @FXML private ListView listView;
+  @FXML private ListView<String> listView;
   @Override protected void init()
   {
-    errorLabel.textProperty().set("");
+    errorLabel.textProperty().bind(getViewModelFactory().getChatViewModel()
+        .errorProperty());
+    inputField.textProperty().bindBidirectional(getViewModelFactory().getChatViewModel()
+        .textInputProperty());
+    listView.setItems(getViewModelFactory().getChatViewModel().messagesProperty());
   }
 
   public void logout()

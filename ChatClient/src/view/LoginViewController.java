@@ -11,11 +11,14 @@ public class LoginViewController extends ViewController
   @FXML private Label errorLabel;
   @Override protected void init()
   {
-    errorLabel.textProperty().set("");
+    errorLabel.textProperty().bind(getViewModelFactory().getLoginViewModel()
+        .errorProperty());
+    inputField.textProperty().bindBidirectional(getViewModelFactory().getLoginViewModel().usernameProperty());
   }
 
   public void login(ActionEvent actionEvent)
   {
+    getViewModelFactory().getLoginViewModel().login();
     getViewHandler().openView("ChatView.fxml");
   }
 }
