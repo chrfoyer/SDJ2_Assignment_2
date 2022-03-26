@@ -27,9 +27,10 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable
     this.socket = socket;
     this.model = model;
     in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-    out = new PrintWriter(socket.getOutputStream());
+    out = new PrintWriter(socket.getOutputStream(), true);
     running = true;
     gson = new Gson();
+    model.addListener(this);
   }
 
   public void stop() throws IOException
@@ -64,10 +65,13 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable
   {
     // By listening for the property changes here, we can broadcast the
     // messages to all the clients connected
-    if (evt.getPropertyName().equals("NEW_MESSAGE")) {
+    if (evt.getPropertyName().equals("NEW_MESSAGE"))
+    {
       // A new message is added to the model
       //         New value: username       Old value: message string
       out.println(evt.getNewValue() + "> " + evt.getOldValue());
+      System.out.println(
+          "Server broadcast> " + evt.getNewValue() + "> " + evt.getOldValue());
     }
   }
 }
