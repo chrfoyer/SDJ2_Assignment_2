@@ -10,6 +10,7 @@ public class ModelManager implements Model
   private PropertyChangeSupport property;
   private String username;
   private MessageList messageList;
+  private int numberOfConnectedUsers;
 
   @Override public void setUsername(String userName)
   {
@@ -39,6 +40,16 @@ public class ModelManager implements Model
     messageList.addMessage(message);
     property.firePropertyChange("NEW_MESSAGE", message.getMessage(),
         message.getUserName());
+  }
+
+  @Override public int getNumberOfConnectedUsers()
+  {
+    return numberOfConnectedUsers;
+  }
+
+  @Override public void setNumberOfConnectedUsers(int numberOfConnectedUsers)
+  {
+    this.numberOfConnectedUsers = numberOfConnectedUsers;
   }
 
   @Override public void addListener(PropertyChangeListener listener)

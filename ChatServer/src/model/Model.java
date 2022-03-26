@@ -12,4 +12,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void addMessage(String message);
   public void addMessage(Message message);
 
+  public int getNumberOfConnectedUsers();
+  public  void setNumberOfConnectedUsers(int numberOfConnectedUsers);
+
 }

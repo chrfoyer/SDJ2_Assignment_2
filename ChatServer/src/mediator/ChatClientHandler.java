@@ -30,14 +30,19 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable
     out = new PrintWriter(socket.getOutputStream(), true);
     running = true;
     gson = new Gson();
-    model.addListener(this);
+    this.model.addListener(this);
+    // Increment the number of connected users in the model
+    this.model.setNumberOfConnectedUsers(model.getNumberOfConnectedUsers() + 1);
   }
 
   public void stop() throws IOException
   {
+    // todo call this when a client wishes to disconnect
     in.close();
     out.close();
     running = false;
+    // Decrement the number of connected users in the model
+    model.setNumberOfConnectedUsers(model.getNumberOfConnectedUsers() - 1);
   }
 
   @Override public void run()
@@ -50,7 +55,15 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable
         String request = in.readLine();
         System.out.println("Client> " + request);
         Message message = gson.fromJson(request, Message.class);
-        model.addMessage(message);
+        // return number of connected users directly if the message contains "/count"
+        if (message.getMessage().contains("/count"))
+        {
+          out.println("" + model.getNumberOfConnectedUsers());
+        }
+        else
+        {
+          model.addMessage(message);
+        }
       }
       catch (IOException e)
       {
@@ -58,8 +71,6 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable
       }
     }
   }
-
-  // todo create way to count clients currently connected
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
