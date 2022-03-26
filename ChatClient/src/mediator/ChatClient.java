@@ -2,6 +2,7 @@ package mediator;
 
 import com.google.gson.Gson;
 import com.sun.webkit.Timer;
+import model.Message;
 import model.Model;
 import model.ModelManager;
 
@@ -91,7 +92,21 @@ public class ChatClient implements PropertyChangeListener
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    out.println(evt.getPropertyName());
-    out.println(evt.getOldValue());
+    if (evt.getPropertyName().equals("NEW_MESSAGE"))
+    {
+      Message message = new Message((String) evt.getOldValue(), (String) evt.getNewValue());
+      String messageJson = gson.toJson(message, Message.class);
+      out.println(messageJson);
+    }
+    else if (evt.getPropertyName().equals("SET_USERNAME"))
+    {
+      // Make the server send a broadcast when a user sets their username
+      Message message = new Message(evt.getNewValue() + " connected", "Server");
+      String messageJson = gson.toJson(message, Message.class);
+      out.println(messageJson);
+    }
+    // Previous code
+    // out.println(evt.getPropertyName());
+    // out.println(evt.getOldValue());
   }
 }

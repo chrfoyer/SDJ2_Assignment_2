@@ -60,6 +60,7 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable
         {
           out.println("" + model.getNumberOfConnectedUsers());
         }
+        // todo make if statement for when a client connects successfully and sets a username
         else
         {
           model.addMessage(message);
