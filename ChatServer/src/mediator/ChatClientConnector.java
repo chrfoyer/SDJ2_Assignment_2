@@ -15,6 +15,7 @@ public class ChatClientConnector implements Runnable {
         this.model = model;
         welcomeSocket = new ServerSocket(PORT);
         running = true;
+        System.out.println("Server started on port " + PORT);
     }
 
     @Override

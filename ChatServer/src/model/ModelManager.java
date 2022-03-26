@@ -34,6 +34,13 @@ public class ModelManager implements Model
     property.firePropertyChange("NEW_MESSAGE", message, username);
   }
 
+  @Override public void addMessage(Message message)
+  {
+    messageList.addMessage(message);
+    property.firePropertyChange("NEW_MESSAGE", message.getMessage(),
+        message.getUserName());
+  }
+
   @Override public void addListener(PropertyChangeListener listener)
   {
     property.addPropertyChangeListener(listener);

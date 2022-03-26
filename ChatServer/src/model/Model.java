@@ -10,5 +10,6 @@ public interface Model extends UnnamedPropertyChangeSubject
 
   public MessageList getAllMessagesForDay(String day);
   public void addMessage(String message);
+  public void addMessage(Message message);
 
 }

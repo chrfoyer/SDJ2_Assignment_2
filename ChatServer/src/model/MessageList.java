@@ -45,6 +45,12 @@ public class MessageList
     addToFile(line);
   }
 
+  public void addMessage(Message message)
+  {
+    messages.add(message);
+    addToFile(message);
+  }
+
   public ArrayList<Message> getAll()
   {
     return messages;

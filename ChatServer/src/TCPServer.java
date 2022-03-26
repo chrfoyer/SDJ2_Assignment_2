@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+// This is a class from an old exercise to help show how TCP works
+
 public class TCPServer
 {
   public static void main(String[] args) throws IOException
