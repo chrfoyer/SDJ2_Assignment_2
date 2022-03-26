@@ -58,9 +58,10 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable
         // return number of connected users directly if the message contains "/count"
         if (message.getMessage().contains("/count"))
         {
-          out.println("" + model.getNumberOfConnectedUsers());
+          out.println(
+              "Server to " + message.getUserName() + "> There are currently "
+                  + model.getNumberOfConnectedUsers() + " connected users");
         }
-        // todo make if statement for when a client connects successfully and sets a username
         else
         {
           model.addMessage(message);
