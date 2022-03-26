@@ -6,6 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.Message;
 import model.Model;
 
 import java.beans.PropertyChangeEvent;
@@ -36,7 +37,11 @@ public class ChatViewModel
 
   }
 
-  //method that adds shit on server
+  public void sendMessage()
+  {
+    model.addMessage(textInput.get());
+    reset();
+  }
 
   public StringProperty errorProperty()
   {

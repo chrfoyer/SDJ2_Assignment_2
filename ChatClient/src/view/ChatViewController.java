@@ -27,6 +27,11 @@ public class ChatViewController extends ViewController
 
   public void send()
   {
-    //
+    getViewModelFactory().getChatViewModel().sendMessage();
+  }
+
+  public void onEnter()
+  {
+    send();
   }
 }
