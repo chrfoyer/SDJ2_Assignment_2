@@ -1,10 +1,15 @@
 package viewmodel;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Model;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 public class ChatViewModel
 {
@@ -17,7 +22,7 @@ public class ChatViewModel
   {
     this.model = model;
     error = new SimpleStringProperty();
-    messages = new SimpleListProperty<>();
+    messages = FXCollections.observableArrayList();;
     textInput = new SimpleStringProperty();
   }
 
@@ -38,7 +43,7 @@ public class ChatViewModel
     return error;
   }
 
-  public ObservableList messagesProperty()
+  public ObservableList<String> messagesProperty()
   {
     return messages;
   }
