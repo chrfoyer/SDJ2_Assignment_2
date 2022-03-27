@@ -59,21 +59,24 @@ public class ChatClient implements PropertyChangeListener
     socket.close();
   }
 
-  /*
-  @Override synchronized public String convert(String source) throws IOException
+  public synchronized void execute()
   {
-    out.println(source);
-    try
+    while (receivedString == null)
     {
-      wait();
+      try
+      {
+        wait();
+      }
+      catch (InterruptedException e)
+      {
+        e.printStackTrace();
+      }
     }
-    catch (InterruptedException e)
-    {
-      e.printStackTrace();
-    }
-    return reply;
+    //we know we got something from the server
+    Message received = gson.fromJson(receivedString, Message.class);
+    model.addMessage(received);
+
   }
-   */
 
   public synchronized void receive(String input)
   {
@@ -94,7 +97,8 @@ public class ChatClient implements PropertyChangeListener
   {
     if (evt.getPropertyName().equals("NEW_MESSAGE"))
     {
-      Message message = new Message((String) evt.getOldValue(), (String) evt.getNewValue());
+      Message message = new Message((String) evt.getOldValue(),
+          (String) evt.getNewValue());
       String messageJson = gson.toJson(message, Message.class);
       out.println(messageJson);
     }

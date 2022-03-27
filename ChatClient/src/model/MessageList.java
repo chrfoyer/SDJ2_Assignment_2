@@ -38,11 +38,10 @@ public class MessageList
     return instance;
   }
 
-  public void addMessage(String text, String userName)
+  public void addMessage(Message message)
   {
-    Message line = new Message(text, userName);
-    messages.add(line);
-    addToFile(line);
+    messages.add(message);
+    addToFile(message);
   }
 
   public ArrayList<Message> getAll()
@@ -69,12 +68,11 @@ public class MessageList
     BufferedWriter out = null;
     try
     {
-      String filename = "Message-" + key+ ".txt";
+      String filename = "Message-" + key + ".txt";
       out = new BufferedWriter(new FileWriter(filename, true));
-      for (Message temp:messages
-           )
+      for (Message temp : messages)
       {
-        out.write(temp.toString()+"\n");
+        out.write(temp.toString() + "\n");
       }
     }
     catch (Exception e)

@@ -24,7 +24,8 @@ public class ChatViewModel implements PropertyChangeListener
     this.model = model;
     model.addListener(this);
     error = new SimpleStringProperty();
-    messages = FXCollections.observableArrayList();;
+    messages = FXCollections.observableArrayList();
+    ;
     textInput = new SimpleStringProperty();
   }
 
@@ -40,7 +41,8 @@ public class ChatViewModel implements PropertyChangeListener
 
   public void sendMessage()
   {
-    model.addMessage(textInput.get());
+    Message input = new Message(textInput.get(), model.getUsername());
+    model.addMessage(input);
     reset();
   }
 

@@ -30,10 +30,15 @@ public class ModelManager implements Model
     return MessageList.getInstance(day);
   }
 
-  @Override public void addMessage(String message)
+  @Override public void addMessage(Message message)
   {
-    messageList.addMessage(message, username);
+    messageList.addMessage(message);
     property.firePropertyChange("NEW_MESSAGE", message, username);
+  }
+
+  public String getUsername()
+  {
+    return username;
   }
 
   @Override public void addListener(PropertyChangeListener listener)

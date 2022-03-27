@@ -42,7 +42,7 @@
          <children>
             <VBox alignment="CENTER" prefHeight="59.0" prefWidth="505.0">
                <children>
-                  <TextField prefHeight="26.0" prefWidth="478.0" fx:id="inputField"/>
+                  <TextField prefHeight="26.0" prefWidth="478.0" fx:id="inputField" onAction="#onEnter"/>
                </children>
             </VBox>
             <VBox alignment="CENTER" prefHeight="59.0" prefWidth="66.0">
