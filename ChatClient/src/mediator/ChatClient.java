@@ -61,21 +61,23 @@ public class ChatClient implements PropertyChangeListener
 
   public synchronized void execute()
   {
-    while (receivedString == null)
+    while (true)
     {
-      try
+      while (receivedString == null)
       {
-        wait();
+        try
+        {
+          wait();
+        }
+        catch (InterruptedException e)
+        {
+          e.printStackTrace();
+        }
       }
-      catch (InterruptedException e)
-      {
-        e.printStackTrace();
-      }
+      //we know we got something from the server
+      Message received = gson.fromJson(receivedString, Message.class);
+      model.addMessage(received);
     }
-    //we know we got something from the server
-    Message received = gson.fromJson(receivedString, Message.class);
-    model.addMessage(received);
-
   }
 
   public synchronized void receive(String input)
