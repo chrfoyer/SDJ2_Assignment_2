@@ -40,7 +40,7 @@ public class MessageList
   public void addMessage(Message message)
   {
     messages.add(message);
-    addToFile(message);
+    //addToFile(message);
   }
 
   public ArrayList<Message> getAll()
@@ -58,7 +58,7 @@ public class MessageList
     return str;
   }
 
-  private void addToFile(Message message)
+  /*private void addToFile(Message message)
   {
     if (message == null)
     {
@@ -90,6 +90,6 @@ public class MessageList
       }
     }
 
-  }
+  }*/
 
 }

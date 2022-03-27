@@ -19,4 +19,9 @@ public class Message
   {
     return userName + " -> " + message;
   }
+
+  public String getMessage()
+  {
+    return message;
+  }
 }
