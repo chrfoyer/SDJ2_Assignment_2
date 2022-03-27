@@ -1,2 +1,17 @@
 
 *.lock
+Message-27.txt
+out/production/ChatClient/mediator/ChatClient.class
+out/production/ChatClient/model/Message.class
+out/production/ChatClient/model/MessageList.class
+out/production/ChatClient/model/Model.class
+out/production/ChatClient/model/ModelManager.class
+out/production/ChatClient/viewmodel/ChatViewModel.class
+out/production/ChatClient/viewmodel/LoginViewModel.class
+out/production/ChatClient/mediator/ChatClient.class
+out/production/ChatClient/model/Message.class
+out/production/ChatClient/model/MessageList.class
+out/production/ChatClient/model/Model.class
+out/production/ChatClient/model/ModelManager.class
+out/production/ChatClient/viewmodel/ChatViewModel.class
+out/production/ChatClient/viewmodel/LoginViewModel.class

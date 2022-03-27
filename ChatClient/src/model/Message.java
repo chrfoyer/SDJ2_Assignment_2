@@ -8,19 +8,15 @@ public class Message
   private LocalDateTime timeStamp;
   private String message;
 
-  public Message(String message, String userName){
+  public Message(String message, String userName)
+  {
     this.message = message;
     this.userName = userName;
     timeStamp = LocalDateTime.now();
   }
 
-  public String getMessage()
+  @Override public String toString()
   {
-    return message;
-  }
-
-  public String getUserName()
-  {
-    return userName;
+    return userName + " -> " + message;
   }
 }

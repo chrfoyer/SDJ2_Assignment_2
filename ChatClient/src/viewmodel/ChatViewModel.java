@@ -67,7 +67,7 @@ public class ChatViewModel implements PropertyChangeListener
       Platform.runLater(() -> {
         Message temp = (Message) evt.getOldValue();
 
-        messages.add(temp.getUserName() + " -> " + temp.getMessage());
+        messages.add(temp.toString());
       });
     }
   }
