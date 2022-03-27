@@ -12,7 +12,7 @@ import model.Model;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class ChatViewModel
+public class ChatViewModel implements PropertyChangeListener
 {
   private Model model;
   private ObservableList<String> messages;
@@ -22,6 +22,7 @@ public class ChatViewModel
   public ChatViewModel(Model model)
   {
     this.model = model;
+    model.addListener(this);
     error = new SimpleStringProperty();
     messages = FXCollections.observableArrayList();;
     textInput = new SimpleStringProperty();
@@ -58,4 +59,15 @@ public class ChatViewModel
     return textInput;
   }
 
+  @Override
+  public void propertyChange(PropertyChangeEvent evt)
+  {
+    if (evt.getPropertyName().equals("NEW_MESSAGE"))
+    {
+      Platform.runLater(() -> {
+        messages.add(0, evt.getNewValue() + "");
+      });
+    }
+  }
 }
+
