@@ -2,22 +2,21 @@ package model;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MessageList
 {
-  private static MessageList instance;
   private ArrayList<Message> messages;
   private String key;
   private static Map<String, MessageList> map = new HashMap<>();
 
   private MessageList()
   {
-    instance = new MessageList();
     messages = new ArrayList<>();
-    key = instance.key;
+    key = LocalDateTime.now().getDayOfMonth() + "";
   }
 
   public static MessageList getInstance(String key)

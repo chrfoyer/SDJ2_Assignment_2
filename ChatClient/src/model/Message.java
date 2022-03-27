@@ -13,4 +13,14 @@ public class Message
     this.userName = userName;
     timeStamp = LocalDateTime.now();
   }
+
+  public String getMessage()
+  {
+    return message;
+  }
+
+  public String getUserName()
+  {
+    return userName;
+  }
 }

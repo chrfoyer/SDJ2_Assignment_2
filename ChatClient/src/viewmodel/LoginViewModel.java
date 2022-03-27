@@ -22,7 +22,7 @@ public class LoginViewModel
     try
     {
       // TODO: 2022. 03. 25.
-      username.get();
+      model.setUsername(username.get());
     }
     catch (Exception e)
     {
