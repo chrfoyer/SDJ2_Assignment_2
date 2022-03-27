@@ -7,8 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" fx:controller="view.LoginViewController" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.LoginViewController">
    <children>
       <HBox alignment="CENTER" prefHeight="78.0" prefWidth="600.0">
          <children>
@@ -38,7 +37,7 @@
                <children>
                   <VBox alignment="CENTER" prefHeight="42.0" prefWidth="265.0">
                      <children>
-                        <TextField prefHeight="40.0" prefWidth="231.0" fx:id="inputField">
+                        <TextField fx:id="inputField" prefHeight="40.0" prefWidth="231.0">
                            <font>
                               <Font size="18.0" />
                            </font>
@@ -49,7 +48,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="102.0" prefWidth="600.0">
                <children>
-                  <Button mnemonicParsing="false" text="Login" onAction="#login">
+                  <Button mnemonicParsing="false" onAction="#login" text="Login">
                      <font>
                         <Font size="24.0" />
                      </font>
@@ -60,7 +59,10 @@
       </VBox>
       <HBox prefHeight="29.0" prefWidth="600.0">
          <children>
-            <Label text="Error" textFill="RED" fx:id="errorLabel"/>
+            <Label fx:id="errorLabel" text="Error" textFill="RED">
+               <font>
+                  <Font size="24.0" />
+               </font></Label>
          </children>
       </HBox>
    </children>

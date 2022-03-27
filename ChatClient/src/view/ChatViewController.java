@@ -20,6 +20,7 @@ public class ChatViewController extends ViewController
         getViewModelFactory().getChatViewModel().textInputProperty());
     listView.setItems(
         getViewModelFactory().getChatViewModel().messagesProperty());
+
   }
 
   public void logout()

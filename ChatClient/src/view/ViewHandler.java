@@ -1,8 +1,10 @@
 package view;
 
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import viewmodel.ViewModelFactory;
 
 public class ViewHandler extends ViewCreator
@@ -20,6 +22,24 @@ public class ViewHandler extends ViewCreator
   {
     this.primaryStage = primaryStage;
     this.currentScene = new Scene(new Region());
+    primaryStage.maximizedProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue)
+      {
+        primaryStage.setMaximized(false);
+        Alert alert = new Alert(Alert.AlertType.ERROR, "I am fine the way i am! Thank you ver much!");
+        alert.showAndWait();
+      }
+    });
+    primaryStage.iconifiedProperty().addListener((observable, oldValue, newValue) -> {
+      if (newValue)
+      {
+        primaryStage.setIconified(false);
+        Alert alert = new Alert(Alert.AlertType.ERROR,
+            "N̶̾̕O̶̐͂ ̵̽̃E̵̋̀S̸̈́̊Ć̶͇Ȁ̸̔P̸̈͌Ë̴̱́\n");
+        alert.setHeaderText("W̸̩̒H̸̬͌R̵̤̈́E̴̻͐ ̶̡̓ ̶̱͋Ȃ̶͕R̴̬̚E̶̦͑ ̶͉̂ ̷͕̐Y̶͖͒O̴͍̓U̸̜̐ ̸̻́ ̸̣̊G̴̡͌O̶̹͗I̶̭͂N̴̰̓G̶̝͠?̴̢̒");
+        alert.showAndWait();
+      }
+    });
     openView("LoginView.fxml");
   }
 
