@@ -18,7 +18,10 @@ public class LoginViewController extends ViewController
 
   public void login(ActionEvent actionEvent)
   {
-    getViewModelFactory().getLoginViewModel().login();
-    getViewHandler().openView("ChatView.fxml");
+    if (getViewModelFactory().getLoginViewModel().login())
+    {
+      getViewHandler().openView("ChatView.fxml");
+    }
+
   }
 }

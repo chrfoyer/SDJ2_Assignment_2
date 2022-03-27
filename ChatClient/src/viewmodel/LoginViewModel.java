@@ -2,6 +2,7 @@ package viewmodel;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import model.Message;
 import model.Model;
 
 public class LoginViewModel
@@ -17,17 +18,26 @@ public class LoginViewModel
     username = new SimpleStringProperty();
   }
 
-  public void login()
+  public boolean login()
   {
+
     try
     {
-      // TODO: 2022. 03. 25.
-      model.setUsername(username.get());
+      if (username.get() == null)
+      {
+        throw new IllegalArgumentException("Can't use an empty username!");
+      }
+      else
+      {
+        model.setUsername(username.get());
+        return true;
+      }
     }
     catch (Exception e)
     {
       error.set(e.getMessage());
     }
+    return false;
   }
 
   public StringProperty errorProperty()
