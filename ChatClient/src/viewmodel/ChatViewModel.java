@@ -11,6 +11,7 @@ import model.Model;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.time.LocalDateTime;
 
 public class ChatViewModel implements PropertyChangeListener
 {
@@ -33,22 +34,22 @@ public class ChatViewModel implements PropertyChangeListener
   public void reset()
   {
     //put in everything from model.getAllmessages() from server
-    error.set("");
-    textInput.set("");
-
+    error.set(null);
+    textInput.set(null);
   }
 
   public void sendMessage()
   {
-    Message input = new Message(textInput.get(), model.getUsername());
-    if (input.getMessage() == null)
+    if (textInput.get() == null)
     {
-      error.set("Can't send empty message!");
-    }else{
+      error.set("Can't send an empty message!");
+    }
+    else
+    {
+      Message input = new Message(textInput.get(), model.getUsername());
       model.addMessage(input);
       reset();
     }
-
   }
 
   public StringProperty errorProperty()
