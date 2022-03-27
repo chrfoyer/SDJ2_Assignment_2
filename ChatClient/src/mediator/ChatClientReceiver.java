@@ -29,7 +29,6 @@ public class ChatClientReceiver implements Runnable
       {
         e.printStackTrace();
       }
-
     }
   }
 }

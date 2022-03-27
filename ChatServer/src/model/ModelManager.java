@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 public class ModelManager implements Model
 {
 
-  private PropertyChangeSupport property;
+  private PropertyChangeSupport property = new PropertyChangeSupport(this);
   private String username;
   private MessageList messageList;
   private int numberOfConnectedUsers;

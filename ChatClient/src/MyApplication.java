@@ -1,5 +1,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
+import mediator.ChatClient;
 import model.Model;
 import model.ModelManager;
 import view.ViewHandler;
@@ -19,6 +20,9 @@ public class MyApplication extends Application
       ViewHandler view = new ViewHandler(viewModelFactory);
 
       view.start(primaryStage);
+      ChatClient client = new ChatClient("localhost", 9876, model);
+      client.connect();
+      client.execute();
     }
     catch (Exception e)
     {
