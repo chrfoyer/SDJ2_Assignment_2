@@ -41,8 +41,14 @@ public class ChatViewModel implements PropertyChangeListener
   public void sendMessage()
   {
     Message input = new Message(textInput.get(), model.getUsername());
-    model.addMessage(input);
-    reset();
+    if (input.getMessage() == null)
+    {
+      error.set("Can't send empty message!");
+    }else{
+      model.addMessage(input);
+      reset();
+    }
+
   }
 
   public StringProperty errorProperty()
