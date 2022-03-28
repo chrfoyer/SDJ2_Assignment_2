@@ -24,4 +24,8 @@ public class Message
   {
     return message;
   }
+
+  public String getUserName() {
+    return userName;
+  }
 }

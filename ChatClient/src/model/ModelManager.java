@@ -24,12 +24,7 @@ public class ModelManager implements Model
     messageList = MessageList.getInstance(
         LocalDateTime.now().getDayOfMonth() + "");
 
-    //todo remove test
-    addMessage(new Message("test", "Hello"));
-    addMessage(new Message("test1", "Hello"));
-    addMessage(new Message("test2", "Hello"));
-    addMessage(new Message("test3", "Bob"));
-    addMessage(new Message("test4", "Hello"));
+
   }
 
   @Override public MessageList getAllMessagesForDay(String day)

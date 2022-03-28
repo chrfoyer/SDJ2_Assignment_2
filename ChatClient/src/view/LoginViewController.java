@@ -16,7 +16,7 @@ public class LoginViewController extends ViewController
     inputField.textProperty().bindBidirectional(getViewModelFactory().getLoginViewModel().usernameProperty());
   }
 
-  public void login(ActionEvent actionEvent)
+  public void login()
   {
     if (getViewModelFactory().getLoginViewModel().login())
     {
@@ -24,4 +24,8 @@ public class LoginViewController extends ViewController
     }
 
   }
+
+    public void onEnter() {
+    login();
+    }
 }

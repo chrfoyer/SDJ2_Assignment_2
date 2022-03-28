@@ -2,22 +2,21 @@ package model;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class MessageList
 {
-  private static MessageList instance;
   private ArrayList<Message> messages;
   private String key;
   private static Map<String, MessageList> map = new HashMap<>();
 
   private MessageList()
   {
-    instance = new MessageList();
     messages = new ArrayList<>();
-    key = instance.key;
+    key = LocalDateTime.now().getDayOfMonth() + "";
   }
 
   public static MessageList getInstance(String key)
@@ -38,17 +37,10 @@ public class MessageList
     return instance;
   }
 
-  public void addMessage(String text, String userName)
-  {
-    Message line = new Message(text, userName);
-    messages.add(line);
-    addToFile(line);
-  }
-
   public void addMessage(Message message)
   {
     messages.add(message);
-    addToFile(message);
+    //addToFile(message);
   }
 
   public ArrayList<Message> getAll()
@@ -66,7 +58,7 @@ public class MessageList
     return str;
   }
 
-  private void addToFile(Message message)
+  /*private void addToFile(Message message)
   {
     if (message == null)
     {
@@ -75,12 +67,11 @@ public class MessageList
     BufferedWriter out = null;
     try
     {
-      String filename = "Message-" + key+ ".txt";
+      String filename = "Message-" + key + ".txt";
       out = new BufferedWriter(new FileWriter(filename, true));
-      for (Message temp:messages
-           )
+      for (Message temp : messages)
       {
-        out.write(temp.toString()+"\n");
+        out.write(temp.toString() + "\n");
       }
     }
     catch (Exception e)
@@ -99,6 +90,6 @@ public class MessageList
       }
     }
 
-  }
+  }*/
 
 }
