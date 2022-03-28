@@ -49,18 +49,21 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable {
 
     @Override
     public void run() {
+        System.out.println("Thread started");
         while (running) {
             try {
-                System.out.println("Thread started");
                 // Read in json from client and convert to message
                 String request = in.readLine();
                 System.out.println("Client> " + request);
                 Message message = gson.fromJson(request, Message.class);
                 // return number of connected users directly if the message contains "/count"
                 if (message.getMessage().contains("/count")) {
-                    out.println(
+                    String massage1 =
                             "Server to " + message.getUserName() + "> There are currently "
-                                    + model.getNumberOfConnectedUsers() + " connected users");
+                                    + model.getNumberOfConnectedUsers() + " connected users";
+                    String massageJson = gson.toJson(new Message(massage1, "Server"));
+                    out.println(massageJson);
+                    System.out.println(massageJson);
                 } else {
                     model.addMessage(message);
                 }
@@ -85,7 +88,7 @@ public class ChatClientHandler implements PropertyChangeListener, Runnable {
             Message message = (Message) evt.getOldValue();
             String messyJson = gson.toJson(message, Message.class);
             out.println(messyJson);
-            System.out.println("Server> " + message.getMessage());
+            System.out.println("Server> " + message.getUserName() + ": " + message.getMessage());
             //         New value: username       Old value: message string
 //            out.println(evt.getNewValue() + "> " + evt.getOldValue());
 //            System.out.println(

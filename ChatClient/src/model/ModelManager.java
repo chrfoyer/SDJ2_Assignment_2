@@ -32,6 +32,12 @@ public class ModelManager implements Model
     return MessageList.getInstance(day);
   }
 
+  @Override
+  public void sendMessage(Message message) {
+    messageList.addMessage(message);
+    property.firePropertyChange("SEND_MESSAGE", message, username);
+  }
+
   @Override public void addMessage(Message message)
   {
     messageList.addMessage(message);

@@ -9,6 +9,7 @@ public interface Model extends UnnamedPropertyChangeSubject
   public void initializeChat();
 
   public MessageList getAllMessagesForDay(String day);
+  public void sendMessage(Message message);
   public void addMessage(Message message);
   public String getUsername();
 

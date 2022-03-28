@@ -21,8 +21,9 @@ public class MyApplication extends Application
 
       view.start(primaryStage);
       ChatClient client = new ChatClient("localhost", 9876, model);
+      new Thread(client).start();
       client.connect();
-      client.execute();
+      // client.execute();
     }
     catch (Exception e)
     {

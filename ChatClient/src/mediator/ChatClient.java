@@ -2,6 +2,8 @@ package mediator;
 
 import com.google.gson.Gson;
 import com.sun.webkit.Timer;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
 import model.Message;
 import model.Model;
 import model.ModelManager;
@@ -14,7 +16,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ChatClient implements PropertyChangeListener {
+public class ChatClient implements PropertyChangeListener, Runnable {
     private String host;
     private int port;
     private Socket socket;
@@ -53,56 +55,70 @@ public class ChatClient implements PropertyChangeListener {
         socket.close();
     }
 
-    public void execute() {
+    @Override
+    public synchronized void run() {
         while (true) {
-            if (!(receivedString == null)) {
-//            System.out.println("Waiting for massage :)");
-//            while (receivedString == null) {
-//                try {
-//                    wait();
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-                //we know we got something from the server
-                Message received = gson.fromJson(receivedString, Message.class);
-                if (received.getUserName().equals("Server")) {
-                    System.out.println(received.toString());
-                } else {
-                    model.addMessage(received);
+            while (receivedString == null) {
+                try {
+                    wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
-                receivedString = null;
             }
-        }
-    }
 
-        public synchronized void receive (String input){
-            // TODO: 2022. 03. 25.
-            //placeholder values
-            if (input.equals("MESSAGE") || input.equals("SIZE")) {
-                System.out.println(input);
+            //we know we got something from the server
+            Message received = gson.fromJson(receivedString, Message.class);
+            if (received.getUserName().equals("Server")) {
+                System.out.println(received.toString());
+                if (received.getMessage().contains("currently")) {
+                    Platform.runLater(() -> {
+                        Alert alert = new Alert(Alert.AlertType.INFORMATION, received.getMessage());
+                        alert.setHeaderText("Server Information");
+                        alert.show();
+                    });
+
+                }
+            } else if (received.getUserName().equals(model.getUsername())) {
+                System.out.println("I sent this message");
             } else {
-                receivedString = input;
-                notifyAll();
+                model.addMessage(received);
+                System.out.println("Message added");
             }
-        }
 
-        @Override
-        public void propertyChange (PropertyChangeEvent evt){
-
-            System.out.println("something happened");
-            if (evt.getPropertyName().equals("NEW_MESSAGE")) {
-                Message message = (Message) evt.getOldValue();
-                String messageJson = gson.toJson(message, Message.class);
-                out.println(messageJson);
-            } else if (evt.getPropertyName().equals("SET_USERNAME")) {
-                // Make the server send a broadcast when a user sets their username
-                Message message = new Message((String) evt.getNewValue() + " connected", "Server");
-                String messageJson = gson.toJson(message, Message.class);
-                out.println(messageJson);
-            }
-            // Previous code
-            // out.println(evt.getPropertyName());
-            // out.println(evt.getOldValue());
+            receivedString = null;
         }
     }
+
+    public synchronized void receive(String input) {
+        // TODO: 2022. 03. 25.
+        //placeholder values
+        if (input.equals("MESSAGE") || input.equals("SIZE")) {
+            System.out.println(input);
+        } else {
+            receivedString = input;
+            System.out.println("Received: " + receivedString);
+            notifyAll();
+        }
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+
+        System.out.println("something happened");
+        if (evt.getPropertyName().equals("NEW_MESSAGE")) {
+            System.out.println("New message received");
+        } else if (evt.getPropertyName().equals("SEND_MESSAGE")) {
+            Message message = (Message) evt.getOldValue();
+            String messageJson = gson.toJson(message, Message.class);
+            out.println(messageJson);
+        } else if (evt.getPropertyName().equals("SET_USERNAME")) {
+            // Make the server send a broadcast when a user sets their username
+            Message message = new Message((String) evt.getNewValue() + " connected", "Server");
+            String messageJson = gson.toJson(message, Message.class);
+            out.println(messageJson);
+        }
+        // Previous code
+        // out.println(evt.getPropertyName());
+        // out.println(evt.getOldValue());
+    }
+}

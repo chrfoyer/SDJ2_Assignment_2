@@ -47,7 +47,7 @@ public class ChatViewModel implements PropertyChangeListener
     else
     {
       Message input = new Message(textInput.get(), model.getUsername());
-      model.addMessage(input);
+      model.sendMessage(input);
       reset();
     }
   }
@@ -69,7 +69,7 @@ public class ChatViewModel implements PropertyChangeListener
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    if (evt.getPropertyName().equals("NEW_MESSAGE"))
+    if (evt.getPropertyName().equals("NEW_MESSAGE")||evt.getPropertyName().equals("SEND_MESSAGE"))
     {
       Platform.runLater(() -> {
         Message temp = (Message) evt.getOldValue();
@@ -78,5 +78,6 @@ public class ChatViewModel implements PropertyChangeListener
       });
     }
   }
+
 }
 

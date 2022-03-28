@@ -17,7 +17,7 @@ public class Message
 
   @Override public String toString()
   {
-    return userName + " -> " + message;
+    return userName + " -> " + message + " ["  + timeStamp.getHour() + ":" + timeStamp.getMinute() + ":" + timeStamp.getSecond() + "]";
   }
 
   public String getMessage()
